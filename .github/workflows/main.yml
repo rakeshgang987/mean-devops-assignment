@@ -38,7 +38,8 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /home/ubuntu/project
-            docker compose down
+            cd /home/ubuntu
+            docker compose down --remove-orphans
+            docker rm -f $(docker ps -aq) || true
             docker compose pull
             docker compose up -d
