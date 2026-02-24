@@ -39,5 +39,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ubuntu/project
+            docker compose down
             docker compose pull
             docker compose up -d
