@@ -53,9 +53,9 @@ Configure Nginx reverse proxy
 
 Ensure application accessibility via Port 80
 
-############ Application Architecture ############
+## Application Architecture
 
-'''
+```
 User (Browser)
         ↓
 Nginx (Port 80)
@@ -65,5 +65,163 @@ Angular Frontend
 Node.js + Express Backend
         ↓
 MongoDB Database
-'''
+```
+🌐 Live Application:
 
+    ``` http://YOUR_EC2_PUBLIC_IP ```
+
+🛠️ Technology Stack
+ ```
+| Layer            | Technology        |
+| ---------------- | ----------------- |
+| Frontend         | Angular 15        |
+| Backend          | Node.js + Express |
+| Database         | MongoDB           |
+| Containerization | Docker            |
+| Orchestration    | Docker Compose    |
+| CI/CD            | GitHub Actions    |
+| Cloud            | AWS EC2 (Ubuntu)  |
+| Reverse Proxy    | Nginx             |
+
+ ```
+
+📂 Repository Structure
+
+```
+.
+├── backend/
+│   ├── app/
+│   ├── server.js
+│   └── Dockerfile
+│
+├── frontend/
+│   └── Dockerfile
+│
+├── docker-compose.yml
+├── .github/workflows/deploy.yml
+├── nginx.conf
+└── README.md
+```
+
+💻 Local Development Setup
+🔹 Backend Setup
+```
+cd backend
+npm install
+```
+Update MongoDB credentials in:
+
+app/config/db.config.js
+
+Run backend server:
+```
+    node server.js
+```
+🔹 Frontend Setup
+```cd frontend
+npm install
+ng serve --port 8081
+```
+Modify backend API URL if needed in:
+```
+src/app/services/tutorial.service.ts
+```
+Access locally at:
+
+http://localhost:8081
+
+Modify backend API URL if needed in:
+
+src/app/services/tutorial.service.ts
+
+Access locally at:
+```
+http://localhost:8081    
+```
+
+
+🐳 Docker Deployment
+Run Using Docker Compose
+docker compose up -d
+
+Verify running containers:
+```
+docker ps
+```
+Application will be accessible at:
+
+http://localhost
+
+Or on EC2:
+```
+http://YOUR_EC2_PUBLIC_IP
+```
+☁️ Cloud Infrastructure (AWS EC2)
+EC2 Configuration
+
+Ubuntu Server
+
+Docker installed
+
+Docker Compose installed
+
+Security Group Rules:
+
+Port 22 (SSH)
+
+Port 80 (HTTP)
+
+Deployment executed using Docker Compose.
+
+🔁 CI/CD Pipeline (GitHub Actions)
+
+The CI/CD pipeline performs the following:
+
+Triggered on push to main
+
+Builds frontend & backend Docker images
+
+Pushes images to Docker Hub
+
+SSH into EC2 server
+
+Pulls latest images
+
+Restarts containers automatically
+
+🐳 Docker Hub Images
+```
+YOUR_DOCKERHUB_USERNAME/dd-mean-frontend
+YOUR_DOCKERHUB_USERNAME/dd-mean-backend
+```
+
+🌐 Nginx Reverse Proxy
+
+Nginx serves Angular frontend
+
+Proxies /api requests internally to backend
+
+Entire application accessible via Port 80
+
+Backend port not exposed publicly
+
+📸 Screenshots Included
+
+Screenshots are available in:
+
+/screenshots/
+
+
+🔐 GitHub Secrets Used
+
+The following secrets are configured securely:
+
+DOCKER_USERNAME
+
+DOCKER_PASSWORD
+
+EC2_HOST
+
+EC2_KEY
+
+No sensitive credentials are stored in the repository.
