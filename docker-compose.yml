@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+
+  mongo:
+    image: mongo:6
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    image: rakeshgang163/dd-mean-backend:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+
+  frontend:
+    image: rakeshgang163/dd-mean-frontend:latest
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
